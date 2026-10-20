@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MBTI 16 型人格测试 · 48 题 · 四维度计分</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== 顶部导航 ===== -->
+  <header class="topbar">
+    <div class="brand">🧠 MBTI 人格测试</div>
+    <nav>
+      <button class="nav-btn active" data-view="home" onclick="showView('home')">首页</button>
+      <button class="nav-btn" data-view="quiz" onclick="startTest()">开始测试</button>
+      <button class="nav-btn" data-view="analysis" onclick="showView('analysis')">数据分析</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== 首页 ===== -->
+    <section id="view-home" class="view active">
+      <div class="hero">
+        <div class="hero-badge">迈尔斯-布里格斯类型指标 · 48 题四维度版</div>
+        <h1>做 48 道情境选择题<br/>看看你属于 <span class="grad">16 型人格</span> 的哪一种</h1>
+        <p class="hero-sub">
+          每题两个选项，凭第一直觉作答——<br/>
+          系统会按 <b>能量来源 / 获取信息 / 决策方式 / 生活态度</b> 四个维度计分，
+          算出你的四字母类型，并给出<b>优势、盲区与适合方向</b>。
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" onclick="startTest()">🚀 开始测试（48 题 · 约 6 分钟）</button>
+          <button class="btn btn-ghost btn-lg" onclick="showView('analysis')">📈 查看数据分析</button>
+        </div>
+      </div>
+
+      <div class="guide-box">
+        <h3>📜 问卷指导语</h3>
+        <p>
+          请凭<b>第一直觉</b>选出更像你的那个选项，不要想"我应该选哪个"。<br/>
+          题目顺序与 A/B 选项位置<b>每次随机</b>，没有标准答案，也不是能力测试。<br/>
+          完成后会得到四字母类型（如 INFP）以及每个维度的倾向百分比。
+        </p>
+      </div>
+
+      <h2 class="section-title">参考：四个维度</h2>
+      <p class="section-sub">MBTI 把人格差异归纳为四组偏好，每组两个方向，组合后得到 16 型。</p>
+      <div class="type-grid" id="home-dims"></div>
+
+      <h2 class="section-title">16 型人格速览</h2>
+      <p class="section-sub">按四大族群查看。测完之后，你会拿到其中一个类型。</p>
+      <div class="tag-wall-switch" id="tag-wall-switch"></div>
+      <div class="tag-wall" id="tag-wall"></div>
+
+      <h2 class="section-title">课题简介</h2>
+      <div class="intro-card">
+        <p>
+          MBTI（Myers–Briggs Type Indicator）以荣格的心理类型学说为基础，
+          用<b>外倾/内倾、实感/直觉、思考/情感、判断/知觉</b>四个维度描述人的认知偏好。
+          本站点使用公开流传的 <b>48 题基础版</b>问卷，每题两个选项，便于在课堂上快速施测与统计。
+        </p>
+        <p>
+          系统会<b>匿名保存</b>每次测试的结果到你自己的浏览器（localStorage），
+          统计分析页会展示类型分布、维度倾向，并支持导出 CSV 用于课程报告。
+          数据不会上传服务器，随时可一键清空。
+        </p>
+        <div class="intro-steps">
+          <span>① 48 题随机作答</span><span>② 四维度计分</span><span>③ 判定 16 型</span>
+          <span>④ 数据入库</span><span>⑤ 可视化分析</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 测试页 ===== -->
+    <section id="view-quiz" class="view">
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-text" id="quiz-progress-text"></div>
+        <div class="quiz-progress-track"><div class="quiz-progress-bar" id="quiz-progress-bar"></div></div>
+      </div>
+      <div id="quiz-box" class="quiz-box"></div>
+    </section>
+
+    <!-- ===== 结果页 ===== -->
+    <section id="view-result" class="view">
+      <div id="result-box"></div>
+    </section>
+
+    <!-- ===== 数据分析 ===== -->
+    <section id="view-analysis" class="view">
+      <h2 class="section-title">测试数据分析</h2>
+      <p class="section-sub">数据保存在本机浏览器（localStorage），可用于课堂展示与统计报告。</p>
+      <div class="kpi-cards" id="kpi-row"></div>
+
+      <div class="panel-grid">
+        <div class="panel">
+          <h3>16 型分布排行</h3>
+          <div id="type-rank"></div>
+        </div>
+        <div class="panel">
+          <h3>四维度平均倾向</h3>
+          <div id="dim-stat"></div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>怎么用这些数据</h3>
+        <ul>
+          <li><b>课堂统计</b>：做完一轮后点「导出问卷数据 CSV」，用 Excel 打开即可做进一步分析。</li>
+          <li><b>维度倾向</b>：看四个维度各自的百分比落差，落差越大说明偏好越鲜明。</li>
+          <li><b>类型分布</b>：柱状图按人次排序，可以快速看出这一批被测者的集中类型。</li>
+          <li><b>隐私说明</b>：所有记录只存在你自己的浏览器里，换设备或清空缓存即失效。</li>
+        </ul>
+      </div>
+
+      <div class="data-actions">
+        <button class="btn btn-primary" onclick="loadDemoData()">🎲 载入示例数据（演示用）</button>
+        <button class="btn btn-ghost" onclick="exportCSV()">⬇️ 导出问卷数据 CSV</button>
+        <button class="btn btn-ghost" onclick="clearData()">🗑️ 清空本地数据</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    MBTI 16 型人格测试 · 48 题四维度版 · 题库取自公开性格测评题（jingyunce.com 48 题基础版），仅作课程演示
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
