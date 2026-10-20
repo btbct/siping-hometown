@@ -1,4 +1,4 @@
-# Download verified files from Wikimedia Commons into assets/img.
+﻿# Download verified files from Wikimedia Commons into assets/img.
 # Reads tools/commons-list.txt  (slot<TAB>File:Name.jpg)
 # Usage: powershell -ExecutionPolicy Bypass -File .\tools\commons-fetch.ps1
 

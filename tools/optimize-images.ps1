@@ -1,4 +1,4 @@
-# 压缩图片：长边超过 1600px 或体积超过 800KB 的重新编码，手机上打开更快
+﻿# 压缩图片：长边超过 1600px 或体积超过 800KB 的重新编码，手机上打开更快
 $ProgressPreference = 'SilentlyContinue'
 Add-Type -AssemblyName System.Drawing
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path | Split-Path -Parent

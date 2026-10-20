@@ -1,4 +1,4 @@
-# 一键上传到 GitHub（用于 GitHub Pages 手机访问）
+﻿# 一键上传到 GitHub（用于 GitHub Pages 手机访问）
 # 用法： powershell -ExecutionPolicy Bypass -File .\tools\deploy.ps1
 #      也可以直接带参数：.\tools\deploy.ps1 -User 你的用户名 -Repo 仓库名
 
@@ -10,8 +10,19 @@ param(
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path | Split-Path -Parent
 Set-Location $root
 
-if (-not $User) { $User = (Read-Host '你的 GitHub 用户名').Trim() }
-if (-not $Repo) { $Repo = (Read-Host '仓库名（英文小写，例如 siping-hometown）').Trim() }
+if (-not $User) { $User = Read-Host '你的 GitHub 用户名' }
+if (-not $Repo) { $Repo = Read-Host '仓库名（英文小写，例如 siping-hometown）' }
+
+# 去掉粘贴时可能带上的空白、BOM、网址前缀
+function Clean-Input([string]$s) {
+  if (-not $s) { return '' }
+  $s = $s.Replace([string][char]0xFEFF, '').Trim()
+  $s = $s -replace '^https?://github\.com/', ''
+  $s = $s -replace '\.git$', ''
+  return $s.Trim('/').Trim()
+}
+$User = Clean-Input $User
+$Repo = Clean-Input $Repo
 
 Write-Host ''
 Write-Host '== 第 1 步：请先在 https://github.com/new 创建空仓库 =='

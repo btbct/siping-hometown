@@ -1,4 +1,4 @@
-# Local static server for the site (no Node / Python / admin rights needed).
+﻿# Local static server for the site (no Node / Python / admin rights needed).
 # Usage:  powershell -ExecutionPolicy Bypass -File .\tools\serve.ps1
 # Then open  http://localhost:8000  and press Ctrl+C to stop.
 

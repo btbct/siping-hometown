@@ -1,4 +1,4 @@
-# Re-download site images from web image search (quality filtered).
+﻿# Re-download site images from web image search (quality filtered).
 # Reads tools/image-queries.txt (slot<TAB>query), overwrites assets/img/<slot>.jpg
 # Filters: skips first candidates, prefers travel/photo domains, requires min size.
 
