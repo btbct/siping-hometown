@@ -18,6 +18,8 @@ $map = @{
   '.gif'  = 'image/gif'
   '.svg'  = 'image/svg+xml'
   '.ico'  = 'image/x-icon'
+  '.mp4'  = 'video/mp4'
+  '.webm' = 'video/webm'
   '.txt'  = 'text/plain; charset=utf-8'
   '.md'   = 'text/plain; charset=utf-8'
 }
