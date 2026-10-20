@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>四平 · 我的家乡 | 吉林四平文旅导览</title>
+<meta name="description" content="吉林四平文旅主题网站：英雄城的红色记忆、叶赫那拉的满族根脉、二龙湖与伊通火山群的湖山风光，以及熏肉大饼与烧鸽子的烟火味道。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23B2352B'/%3E%3Ctext x='32' y='43' font-size='34' text-anchor='middle' fill='%23F6F1E7' font-family='serif'%3E四%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ 图标精灵 ============ -->
+<svg class="sprite" aria-hidden="true">
+  <defs>
+    <g id="i-memorial"><path d="M12 3v58M6 61h12M20 12h24v8H20zM32 20v14M24 24h16M20 34h24v8H20zM14 50h36"/></g>
+    <g id="i-city"><path d="M4 56h56M10 56V28l22-12 22 12v28M22 56V38h8v18M34 56V38h8v18M18 28h6M40 28h6M32 22v6"/></g>
+    <g id="i-mountain"><path d="M4 54l14-22 9 13 8-11 21 20zM4 54h56M40 14l6 8-12 4z"/></g>
+    <g id="i-lantern"><path d="M32 6v8M20 14h24l4 10H16zM20 24h24l4 14H16zM32 38v8M22 54h20M24 46v8M40 46v8"/></g>
+    <g id="i-hall"><path d="M4 30l28-16 28 16M12 30v26M52 30v26M4 30h56M4 56h56M24 56V38h16v18"/></g>
+    <g id="i-train"><path d="M16 6h32v38H16zM16 20h32M22 30h4M38 30h4M16 44l-6 12M48 44l6 12M12 56h40M22 50h20"/></g>
+    <g id="i-bed"><path d="M4 52V28M4 40h56v12M4 52h56M14 40V32h14v8M14 36h14"/></g>
+    <g id="i-clock"><circle cx="32" cy="32" r="24"/><path d="M32 16v18l12 8"/></g>
+    <g id="i-info"><circle cx="32" cy="32" r="24"/><path d="M32 26v6M32 36v14"/></g>
+    <g id="i-heart"><path d="M32 54S8 40 8 24a12 12 0 0124-6 12 12 0 0124 6c0 16-24 30-24 30z"/></g>
+    <g id="i-arrow"><path d="M6 32h52M40 14l18 18-18 18"/></g>
+    <g id="i-pin"><path d="M32 60s18-20 18-32a18 18 0 10-36 0c0 12 18 32 18 32z"/><circle cx="32" cy="27" r="6"/></g>
+  </defs>
+</svg>
+
+<div class="progress"><i id="progressBar"></i></div>
+
+<!-- ============ 导航 ============ -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="brand" href="#home">
+      <span class="brand__mark">四平</span>
+      <span class="brand__sub">我的家乡</span>
+    </a>
+    <nav class="nav__links" id="navLinks"></nav>
+    <button class="nav__toggle" id="navToggle" aria-label="打开菜单"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ 首页 ============ -->
+  <section class="hero" id="home">
+    <div class="hero__bg" role="img" aria-label="四平城市风光">
+      <div class="hero__veil"></div>
+    </div>
+    <div class="hero__inner">
+      <p class="hero__place" id="heroPlace"></p>
+      <h1 class="hero__title">四平</h1>
+      <p class="hero__slogan" id="heroSlogan"></p>
+      <p class="hero__lead" id="heroLead"></p>
+      <div class="hero__cta">
+        <a class="btn btn--solid" href="#spots">开始探索</a>
+        <a class="btn btn--ghost" href="#route">帮我规划行程</a>
+      </div>
+      <ul class="hero__stats" id="heroStats"></ul>
+    </div>
+    <a class="hero__down" href="#cats" aria-label="向下滚动"><span></span></a>
+  </section>
+
+  <!-- ============ 01 分类 ============ -->
+  <section class="sec" id="cats">
+    <div class="wrap">
+      <header class="sec__head reveal">
+        <span class="sec__no">01 / 文旅项目分类</span>
+        <h2 class="sec__title">四种打开四平的方式</h2>
+        <p class="sec__desc">红色、满韵、湖山、烟火——按你今天的心情挑一个入口。</p>
+      </header>
+      <div class="cats" id="catsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 02 好玩 ============ -->
+  <section class="sec sec--paper" id="spots">
+    <div class="wrap">
+      <header class="sec__head reveal">
+        <span class="sec__no">02 / 好玩</span>
+        <h2 class="sec__title">四平值得去的地方</h2>
+        <p class="sec__desc">共 <b id="spotTotal">0</b> 处景点与体验点，点卡片看详情与实用贴士；♥ 可加入心愿单。</p>
+      </header>
+      <div class="chips" id="spotChips"></div>
+      <div class="cards" id="spotsGrid"></div>
+      <p class="empty" id="spotsEmpty" hidden>这个分类下暂时没有条目，换个标签看看。</p>
+    </div>
+  </section>
+
+  <!-- ============ 03 人文 ============ -->
+  <section class="sec" id="culture">
+    <div class="wrap">
+      <header class="sec__head reveal">
+        <span class="sec__no">03 / 人文</span>
+        <h2 class="sec__title">五张文化名片</h2>
+        <p class="sec__desc">让四平不只是一座“打过仗的城市”的，是这五样东西。</p>
+      </header>
+      <div class="culture" id="cultureList"></div>
+    </div>
+  </section>
+
+  <!-- ============ 04 好吃 ============ -->
+  <section class="sec sec--paper" id="food">
+    <div class="wrap">
+      <header class="sec__head reveal">
+        <span class="sec__no">04 / 好吃</span>
+        <h2 class="sec__title">舌尖上的四平</h2>
+        <p class="sec__desc">从百年老字号的熏肉大饼，到夜市摊头的一把小串，再到能带走的那几样。</p>
+      </header>
+      <div class="cards cards--food" id="foodGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 05 线路 ============ -->
+  <section class="sec" id="route">
+    <div class="wrap">
+      <header class="sec__head reveal">
+        <span class="sec__no">05 / 线路</span>
+        <h2 class="sec__title">行程规划器</h2>
+        <p class="sec__desc">告诉我你有几天、喜欢什么，我给你排一条线。</p>
+      </header>
+      <div class="planner reveal">
+        <div class="planner__form">
+          <div class="field">
+            <label class="field__label">出行天数</label>
+            <div class="seg" id="daySeg"></div>
+          </div>
+          <div class="field">
+            <label class="field__label">兴趣偏好（可多选）</label>
+            <div class="checks" id="interestChecks"></div>
+          </div>
+          <div class="planner__actions">
+            <button class="btn btn--solid" id="genRoute">生成我的行程</button>
+            <button class="btn btn--ghost" id="resetRoute">重置</button>
+          </div>
+        </div>
+        <div class="planner__out" id="routeOut">
+          <div class="planner__hint">
+            <svg viewBox="0 0 64 64" class="planner__icon"><use href="#i-pin"></use></svg>
+            <p>选好天数与偏好，点左边的按钮，这里会出现一条按天排好的线路。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 时节 ============ -->
+  <section class="sec sec--paper" id="season">
+    <div class="wrap">
+      <header class="sec__head reveal">
+        <span class="sec__no">06 / 时节</span>
+        <h2 class="sec__title">什么时候来最好</h2>
+        <p class="sec__desc">如果只能选一个季节，那就秋天。但每个季节都有它自己的理由。</p>
+      </header>
+      <div class="seasons" id="seasonList"></div>
+    </div>
+  </section>
+
+  <!-- ============ 07 攻略 ============ -->
+  <section class="sec" id="tips">
+    <div class="wrap">
+      <header class="sec__head reveal">
+        <span class="sec__no">07 / 攻略</span>
+        <h2 class="sec__title">出发前看这一页</h2>
+        <p class="sec__desc">交通、住宿、行程节奏与实用贴士，一次说清。</p>
+      </header>
+      <div class="tips" id="tipsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 08 关于 ============ -->
+  <section class="sec sec--about" id="about">
+    <div class="wrap">
+      <header class="sec__head reveal">
+        <span class="sec__no">08 / 关于四平</span>
+        <h2 class="sec__title">英雄城，黑土地，我的家乡</h2>
+      </header>
+      <div class="about">
+        <div class="about__text reveal">
+          <div id="aboutText"></div>
+          <ul class="stats" id="aboutStats"></ul>
+        </div>
+      </div>
+      <details class="sources reveal">
+        <summary>资料来源与数据出处（点击展开）</summary>
+        <ul id="sourceList"></ul>
+        <p class="sources__note">
+          票价、开放时间与活动安排以景区及官方最新公告为准。配图采集自 Wikimedia Commons 等公开图源，
+          部分场景在无对应实拍时使用同类题材示意图，逐张来源与许可记录见 <code>assets/img/_sources.txt</code>。
+          本站为《人工智能导论》课程实践作品，不作商业用途。
+        </p>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 页脚 ============ -->
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div>
+      <p class="foot__brand">四平 · 我的家乡</p>
+      <p class="foot__sub">吉林省四平市文旅导览 · 一个把家乡讲给世界听的小站</p>
+    </div>
+    <nav class="foot__nav" id="footNav"></nav>
+  </div>
+  <div class="wrap foot__copy">
+    <span>© 2026 我的家乡——吉林四平文旅主题网站 ｜ 《人工智能导论》课程实践作品</span>
+    <span>文字资料整理自四平市政府门户网站及公开报道，详见“资料来源”。</span>
+  </div>
+</footer>
+
+<!-- ============ 心愿单 ============ -->
+<button class="wl-fab" id="wlFab">
+  <svg viewBox="0 0 64 64" class="wl-fab__icon"><use href="#i-heart"></use></svg>
+  <span>心愿单</span><b id="wlCount">0</b>
+</button>
+<aside class="wl" id="wlPanel" aria-label="我的心愿单">
+  <div class="wl__head">
+    <h3>我的心愿单 <span id="wlCount2">0</span></h3>
+    <button class="wl__close" id="wlClose" aria-label="关闭">×</button>
+  </div>
+  <ul class="wl__list" id="wlList"></ul>
+  <p class="wl__empty" id="wlEmpty">还没有收藏。在景点或美食卡片上点 ♥，它们会出现在这里。</p>
+  <div class="wl__foot"><button class="btn btn--ghost btn--sm" id="wlClear">清空</button></div>
+</aside>
+<div class="wl__mask" id="wlMask"></div>
+
+<!-- ============ 详情弹窗 ============ -->
+<div class="modal" id="modal" hidden>
+  <div class="modal__mask" data-close></div>
+  <div class="modal__panel" role="dialog" aria-modal="true">
+    <button class="modal__close" data-close aria-label="关闭">×</button>
+    <div class="modal__body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ============ 图片灯箱 ============ -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox__close" id="lbClose" aria-label="关闭">×</button>
+  <figure class="lightbox__fig">
+    <img id="lbImg" src="" alt="">
+    <figcaption id="lbCap"></figcaption>
+  </figure>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

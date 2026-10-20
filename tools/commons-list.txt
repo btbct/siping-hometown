@@ -1,0 +1,6 @@
+hero	File:英雄大路2017.jpg
+spot-02	File:Siping City Heroes Square 2-2017.jpg
+spot-04	File:南河，四平2017.jpg
+culture-02	File:四平战役3450.jpg
+cat-life	File:伊通市场入口.jpg
+cat-man	File:The Skyline of Yitong town.jpg
