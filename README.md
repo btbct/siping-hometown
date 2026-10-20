@@ -72,15 +72,26 @@ powershell -ExecutionPolicy Bypass -File .\tools\serve.ps1
 
 ---
 
-## 五、部署到 GitHub Pages
+## 五、部署到 GitHub Pages（手机可访问）
 
-1. 在 GitHub 新建仓库，例如 `my-hometown-siping`。
+本地 git 仓库已经建好、代码已提交到 `main` 分支，你只需要做两件事。
+
+**最简单的方式**——运行一键脚本，它会提示你输入用户名和仓库名，然后自动推送：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\deploy.ps1
+```
+
+**手动方式**：
+
+1. 在 GitHub 新建空仓库，例如 `my-hometown-siping`（**不要**勾选 Add a README file）。
 2. 把本目录所有文件推到仓库的 `main` 分支（**不要**只推子文件夹）。
 3. 仓库 → **Settings** → **Pages** → Source 选 `Deploy from a branch`，
    Branch 选 `main` / `/(root)`，点 Save。
-4. 等 1–2 分钟，访问 `https://<你的用户名>.github.io/my-hometown-siping/`。
+4. 等 1–2 分钟，手机访问 `https://<你的用户名>.github.io/my-hometown-siping/`。
+   把网址发到微信，手机点开就能看。
 
-命令行版：
+命令行版（已 `git init` 并 commit，可直接执行后两行）：
 
 ```bash
 git init
