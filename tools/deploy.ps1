@@ -81,14 +81,38 @@ Write-Host ('== 第 2 步：推送到 ' + $url + ' ==') -ForegroundColor Cyan
 Write-Host '   弹出登录窗口时用 GitHub 账号登录（或用 Personal Access Token 当密码）'
 Write-Host ''
 
-$attempt = 0
+# 部分网络/代理环境下 Git 自带的 OpenSSL 证书校验会失败，
+# 按「默认 -> Windows 证书库 -> 跳过校验」顺序自动尝试
+$strategies = @(
+  @{ Label = '默认方式'; Args = @() },
+  @{ Label = 'Windows 系统证书库'; Args = @('-c', 'http.sslBackend=schannel') },
+  @{ Label = '临时跳过证书校验'; Args = @('-c', 'http.sslVerify=false') }
+)
+
 $pushed = $false
-while ($attempt -lt 3 -and -not $pushed) {
-  $attempt++
-  if ($attempt -gt 1) { Write-Host ('   第 ' + $attempt + ' 次尝试推送...') -ForegroundColor Yellow }
-  git push -u origin main
-  if ($LASTEXITCODE -eq 0) { $pushed = $true }
-  elseif ($attempt -lt 3) { Start-Sleep -Seconds 5 }
+foreach ($s in $strategies) {
+  Write-Host ('   推送方式：' + $s.Label) -ForegroundColor DarkGray
+  $gitArgs = $s.Args + @('push', '-u', 'origin', 'main')
+  $log = (& git @gitArgs 2>&1 | Out-String)
+  if ($LASTEXITCODE -eq 0) {
+    $pushed = $true
+    if ($s.Args.Count -gt 0) {
+      Write-Host ('   推送成功（用了「' + $s.Label + '」）') -ForegroundColor Green
+      if ($s.Label -like '*Windows*') {
+        Write-Host '   建议以后固定用这个后端，避免每次报 SSL 错：' -ForegroundColor DarkGray
+        Write-Host '     git config --global http.sslBackend schannel' -ForegroundColor DarkGray
+      }
+    } else {
+      Write-Host '   推送成功' -ForegroundColor Green
+    }
+    break
+  }
+  if ($log -match 'SSL certificate problem|unable to get local issuer') {
+    Write-Host '   证书校验失败，换一种方式重试...' -ForegroundColor Yellow
+    continue
+  }
+  Write-Host $log
+  break
 }
 
 if (-not $pushed) {
